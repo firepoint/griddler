@@ -9,7 +9,7 @@ module Griddler
     def initialize(params)
       @params = params
 
-      @envelope_to = extract_address(JSON.parse(params[:envelope])['to'].first)
+      @envelope_to = JSON.parse(params[:envelope])['to'].map { |recipient| extract_address(recipient) }.compact
       @to = recipients(:to)
       @from = extract_address(params[:from])
       @subject = params[:subject]
